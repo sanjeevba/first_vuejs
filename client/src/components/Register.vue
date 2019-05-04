@@ -2,18 +2,18 @@
   <div>
     <v-container grid-list-xl text-xs-center>
       <v-layout column>
-        <v-flex xs10 offset-xs1>
+        <v-flex xs12 sm6 md3 order-md4 order-sm2>
           <div class="white elevation-2">
-            <v-toolbar flat dense class="cyan" dark>
-              <v-toolbar-title>Register</v-toolbar-title>
-            </v-toolbar> 
-            <div class="pl-4 pr-4 pt-2 pb-2">
-              <input type="email " name="email" v-model="email" placeholder="email" />
+            <v-toolbar flat dense dark class="blue darken-3">
+              <v-toolbar-title class="font-weight-regular">Register</v-toolbar-title>
+            </v-toolbar>
+            <div class="pl-4 pr-4 pt-2 pb-2" >
+              <v-text-field label="Email" v-model="email"></v-text-field>
               <br>
-              <input type="password" name="password" v-model="password" placeholder="password"/>
+              <v-text-field type="password" label="Password" v-model="password"></v-text-field>
               <br>
               <div class="error" v-html="error"></div>
-              <v-btn class="cyan" @click="register">Register</v-btn>
+              <v-btn class="blue darken-3" dark @click="register">Register</v-btn>
             </div>
           </div>
         </v-flex>
@@ -27,33 +27,31 @@ import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
     return {
-      email: 'sanjeev@gmail.com',
+      email: '',
       password: '',
       error: null
     }
   },
   methods: {
     async register () {
-      try{
+      try {
         const response = await AuthenticationService.register({
           email: this.email,
           password: this.password
         })
-      }
-      catch (error) {
+        console.log(response)
+      } catch (error) {
         this.error = error.response.data.error
-
       }
     }
   }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .error {
-  color: red;
+  color: white;
 }
-
 </style>
