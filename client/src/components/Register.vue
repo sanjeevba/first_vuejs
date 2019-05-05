@@ -9,6 +9,10 @@
             </v-toolbar>
             <div class="pl-4 pr-4 pt-2 pb-2" >
               <form name="MyFirstVue" autocomplete="off">
+              <v-text-field label="Firstname" v-model="firstname"></v-text-field>
+              <br>
+              <v-text-field label="Lastname" v-model="lastname"></v-text-field>
+              <br>
               <v-text-field label="Email" v-model="email"></v-text-field>
               <br>
               <v-text-field type="password" label="Password" v-model="password" autocomplete="new-password"></v-text-field>
@@ -29,6 +33,8 @@ import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
     return {
+      firstname: '',
+      lastname: '',
       email: '',
       password: '',
       error: null
@@ -39,6 +45,8 @@ export default {
       this.error = ''
       try {
         const response = await AuthenticationService.register({
+          firstname: this.firstname,
+          lastname: this.lastname,
           email: this.email,
           password: this.password
         })

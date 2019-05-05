@@ -18,6 +18,7 @@ module.exports = {
 		try {
 			const user = await User.create(req.body)
 			const userJson = user.toJSON()
+			console.log('Registered user: ' + user.toJSON())
 			res.send({
 					user: userJson,
 					token: jwtSignUser(userJson)
@@ -38,7 +39,7 @@ module.exports = {
 				}
 			})
 
-			console.log('user', user.toJSON())
+			//console.log('user', user.toJSON())
 			if (!user) {
 				return res.status(403).send({
 					error: 'The login information was incorrect'
@@ -52,6 +53,7 @@ module.exports = {
 				})
 			} 
 			const userJson = user.toJSON()
+			console.log('user', user.toJSON())
 			res.send({
 					user: userJson,
 					token: jwtSignUser(userJson)
