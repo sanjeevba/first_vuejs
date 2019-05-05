@@ -8,12 +8,14 @@
               <v-toolbar-title class="font-weight-regular">Login</v-toolbar-title>
             </v-toolbar>
             <div class="pl-4 pr-4 pt-2 pb-2" >
+              <form name="MyFirstVue">
               <v-text-field label="Email" v-model="email"></v-text-field>
               <br>
               <v-text-field type="password" label="Password" v-model="password"></v-text-field>
               <br>
               <div class="error" v-html="error"></div>
               <v-btn class="blue darken-3" dark @click="login">Login</v-btn>
+            </form>
             </div>
           </div>
         </v-flex>
@@ -34,17 +36,17 @@ export default {
   },
   methods: {
     async login () {
+      this.error = ''
       try {
-        this.error = ''
         const response = await AuthenticationService.login(
           {
             email: this.email,
             password: this.password
-          }
-        )
-        console.log('Response ' + response)
+          })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
       } catch (error) {
-        this.error = error.response.data.error
+        this.error = error.response.error
       }
     }
   }
